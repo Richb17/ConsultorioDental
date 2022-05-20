@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consulta;
-use App\Models\Pacientes;
-use App\Models\Tratamientos;
-use App\Models\LogConsultas;
+use App\Models\Pagos;
+use App\Models\LogPagos;
 use Illuminate\Http\Request;
 
-
-class ConsultaController extends Controller
+class PagosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,7 @@ class ConsultaController extends Controller
      */
     public function index()
     {
-        $Pacientes = Pacientes::all();
-        $Tratamientos = Tratamientos::all();
-        $Consultas = Consulta::all();
-        return view('consultas.index')->with('Pacientes',$Pacientes)->with('Tratamientos',$Tratamientos)->with('Consultas',$Consultas);
+        return view('index');
     }
 
     /**
@@ -48,10 +42,10 @@ class ConsultaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Consulta  $consulta
+     * @param  \App\Models\Pagos  $Pago
      * @return \Illuminate\Http\Response
      */
-    public function show(Consulta $consulta)
+    public function show(Pagos $Pago)
     {
         //
     }
@@ -59,10 +53,10 @@ class ConsultaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Consulta  $consulta
+     * @param  \App\Models\Pagos  $Pago
      * @return \Illuminate\Http\Response
      */
-    public function edit(Consulta $consulta)
+    public function edit(Pagos $Pago)
     {
         //
     }
@@ -71,10 +65,10 @@ class ConsultaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Consulta  $consulta
+     * @param  \App\Models\Pagos  $Pago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Consulta $consulta)
+    public function update(Request $request, Pagos $Pago)
     {
         //
     }
@@ -82,10 +76,10 @@ class ConsultaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Consulta  $consulta
+     * @param  \App\Models\Pagos  $Pago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Consulta $consulta)
+    public function destroy(Pagos $Pago)
     {
         //
     }
