@@ -37,9 +37,9 @@
                                 </select>
                                 <br>
                                 <br>
-
+                                
                                 <label for="appt">Seleccione una hora :</label>
-                                <input type="time" id="hora" name="appt">   
+                                <input type="time" id="hora" name="appt" required>   
 
                                 <div class="d-flex justify-content-end">
                                     <input class="btn btn-primary " type="submit" value="Registrar Cita">
