@@ -6,18 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
         initialView: 'dayGridMonth',
         nowIndicator: true,
+        eventLimit: true,
         eventColor: "#E0607E",
 
         locale: "es",
 
         headerToolbar: {
-            left: "prev,today,next",
+            left: "",
             center: "title",
-            right: "timeGridWeek,dayGridMonth"
+            right: "prev,today,next"
         },
 
         dateClick: function(info) {
             $("#consulta").modal("show");
+            $("#fecha").val(info.dateStr);
             //alert("Fecha " + info.date.getDate() + " " + (info.date.getMonth() + 1) + " " + info.date.getFullYear());
         }
 

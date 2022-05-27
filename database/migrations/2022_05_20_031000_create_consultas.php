@@ -23,8 +23,8 @@ class CreateConsultas extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('fechaProgramada');
+            $table->time('horarioProgramado');
             $table->boolean('asistencia');
-            $table->double('costo',8,3);
             $table->softDeletes();
             $table->timestamps();
             

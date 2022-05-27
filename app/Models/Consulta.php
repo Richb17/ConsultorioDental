@@ -15,6 +15,6 @@ class Consulta extends Model
     protected $fillable = [
         'fechaProgramada',
         'asistencia',
-        'costo'
+        'horarioProgramado'
     ];
 }

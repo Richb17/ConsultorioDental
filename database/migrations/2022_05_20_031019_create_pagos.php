@@ -20,7 +20,6 @@ class CreatePagos extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('fechaPago');
-            $table->double('xPagar',8,3);
             $table->boolean('pagoCompleto');
             $table->softDeletes();
             $table->timestamps();

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-@guest
-    return view('auth.login')
+@guest 
+    
 @else 
 <div class="container">
     <div class="row justify-content-center">
@@ -21,7 +21,7 @@
                         <div class="modal-body">
                             <form action="/guardarConsulta" method="GET">
                                 <label class="form-label" for="Pacientes">Pacientes:</label>
-                                <select class="form-select" name="Pacientes" id="paciente" aria-label="Default select example">
+                                <select class="form-select" name="paciente" id="paciente" aria-label="Default select example">
                                     <option selected>Seleccione un paciente</option>
                                     @foreach ($Pacientes as $paciente)
                                         <option value={{ $paciente->id }}> {{$paciente->nombre}} {{$paciente->apellidoP}} {{$paciente->apellidoM}} </option>
@@ -29,18 +29,19 @@
                                 </select>
                                 <br>
                                 <label class="form-label" for="Tratamientos">Tratamientos:</label>
-                                <select class="form-select" name="Tratamientos" id="tratamiento" aria-label="Default select example">
+                                <select class="form-select" name="procedimiento" id="tratamiento" aria-label="Default select example">
                                     <option selected>Seleccione un tratamiento</option>
                                     @foreach ($Tratamientos as $tratamiento)
                                         <option value={{ $tratamiento->id }}> {{$tratamiento->procedimiento}} </option>
                                     @endforeach
                                 </select>
                                 <br>
-                                <br>
                                 
-                                <label for="appt">Seleccione una hora :</label>
-                                <input type="time" id="hora" name="appt" required>   
+                                <label for="hora">Seleccione una hora :</label>
+                                <input type="time" id="hora" name="hora" required>   
 
+                                <input id="fecha" class="form-control" name="fecha" type="hidden" >
+                                
                                 <div class="d-flex justify-content-end">
                                     <input class="btn btn-primary " type="submit" value="Registrar Cita">
                                 </div>

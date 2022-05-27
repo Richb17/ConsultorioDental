@@ -24,6 +24,14 @@ class ConsultaController extends Controller
         return view('consultas.home')->with('Pacientes',$Pacientes)->with('Tratamientos',$Tratamientos)->with('Consultas',$Consultas);
     }
 
+    public function indexCards()
+    {
+        $Pacientes = Pacientes::all();
+        $Tratamientos = Tratamientos::all();
+        $Consultas = Consulta::all();
+        return view('consultas.verConsultas')->with('Pacientes',$Pacientes)->with('Tratamientos',$Tratamientos)->with('Consultas',$Consultas);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,6 +51,24 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         //
+        $consulta = new Consulta();
+        $consulta->paciente_id = $request->paciente;
+        $consulta->procedimiento_id = $request->procedimiento;
+        $consulta->fechaProgramada = $request->fecha;
+        $consulta->horarioProgramado = $request->hora;
+        $consulta->asistencia = false;
+        $consulta->save();
+
+        $log = new LogConsultas();
+        $log->idConsulta = $consulta->id;
+        $log->paciente_idN = $consulta->paciente_id;
+        $log->procedimiento_idN = $consulta->procedimiento_id;
+        $log->fechaProgramadaN = $consulta->fechaProgramada;
+        $log->horarioProgramadoN = $consulta->horarioProgramado;
+        $log->asistenciaN = $consulta->asistencia;
+        $log->save();
+
+        return redirect()->back();
     }
 
     /**

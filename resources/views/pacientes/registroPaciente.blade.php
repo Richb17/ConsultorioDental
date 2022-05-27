@@ -10,15 +10,15 @@
         <form action="/guardarPaciente" method="GET">
             @csrf
             <label class="form-label" for="Nombre">Nombre:</label>
-            <input class="form-control" type="text" name="nombre" id="nombre" autocomplete="off">
+            <input class="form-control" type="text" name="nombre" id="nombre" autocomplete="off" required>
             <br>
             <br>
             <label class="form-label" for="apellidoP">Apellido Paterno:</label>
-            <input class="form-control" type="text" name="apellidoP" id="apellidoP" autocomplete="off">
+            <input class="form-control" type="text" name="apellidoP" id="apellidoP" autocomplete="off" required>
             <br>
             <br>
             <label class="form-label" for="apellidoM">Apellido Materno:</label>
-            <input class="form-control" type="text" name="apellidoM" id="apellidoM" autocomplete="off">
+            <input class="form-control" type="text" name="apellidoM" id="apellidoM" autocomplete="off" required>
             <br>
             <br>
             <label class="form-label" for="numTelefono">Número de tel.:</label>

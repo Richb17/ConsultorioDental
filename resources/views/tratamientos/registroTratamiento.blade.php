@@ -10,11 +10,11 @@
         <form action="/guardarTratamiento" method="GET">
             @csrf
             <label class="form-label" for="procedimiento">Nombre del procedimiento:</label>
-            <input class="form-control" type="text" name="procedimiento" id="procedimiento" autocomplete="off">
+            <input class="form-control" type="text" name="procedimiento" id="procedimiento" autocomplete="off" required>
             <br>
             <br>
             <label class="form-label" for="costoSugerido">Costo Sugerido:</label>
-            <input class="form-control" type="number" name="costoSugerido" id="costoSugerido" min="1" autocomplete="off">
+            <input class="form-control" type="number" name="costoSugerido" id="costoSugerido" min="1" autocomplete="off" required>
             <br>
             <div class="d-flex justify-content-end">
                 <input class="btn btn-primary " type="submit" value="Registrar">

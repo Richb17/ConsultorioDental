@@ -21,6 +21,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'index']);
+Route::get('/verConsultas', [App\Http\Controllers\ConsultaController::class, 'indexCards']);
+Route::get('/guardarConsulta', [App\Http\Controllers\ConsultaController::class, 'store']);
 
 
 Route::get('/nuevoPaciente', [App\Http\Controllers\PacienteController::class, 'create']);

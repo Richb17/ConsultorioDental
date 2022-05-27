@@ -15,12 +15,12 @@ class LogConsultas extends Model
         'paciente_id0',
         'procedimiento_id0',
         'fechaProgramada0',
+        'horarioProgramado0',
         'asistencia0',
-        'costo0',
         'paciente_idN',
         'procedimiento_idN',
         'fechaProgramadaN',
+        'horarioProgramadoN',
         'asistenciaN',
-        'costoN'
     ];
 }
