@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'index']);
+Route::get('/verConsultas', [App\Http\Controllers\ConsultaController::class, 'indexCards']);
+Route::get('/guardarConsulta', [App\Http\Controllers\ConsultaController::class, 'store']);
+
+
+Route::get('/nuevoPaciente', [App\Http\Controllers\PacienteController::class, 'create']);
+Route::get('/verPacientes', [App\Http\Controllers\PacienteController::class, 'index']);
+Route::get('/guardarPaciente', [App\Http\Controllers\PacienteController::class, 'store']);
+Route::get('/eliminarPaciente/{id}', [App\Http\Controllers\PacienteController::class, 'destroy']);
+Route::get('/editarPaciente/{id}', [App\Http\Controllers\PacienteController::class, 'edit']);
+Route::get('/guardarEdicionPaciente', [App\Http\Controllers\PacienteController::class, 'update']);
+
+Route::get('/nuevoTratamiento', [App\Http\Controllers\TratamientoController::class, 'create']);
+Route::get('/verTratamientos', [App\Http\Controllers\TratamientoController::class, 'index']);
+Route::get('/guardarTratamiento', [App\Http\Controllers\TratamientoController::class, 'store']);
+Route::get('/eliminarTratamiento/{id}', [App\Http\Controllers\TratamientoController::class, 'destroy']);
+Route::get('/editarTratamiento/{id}', [App\Http\Controllers\TratamientoController::class, 'edit']);
+Route::get('/guardarEdicionTratamiento', [App\Http\Controllers\TratamientoController::class, 'update']);
+
+
+#Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
