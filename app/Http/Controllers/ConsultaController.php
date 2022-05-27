@@ -21,7 +21,7 @@ class ConsultaController extends Controller
         $Pacientes = Pacientes::all();
         $Tratamientos = Tratamientos::all();
         $Consultas = Consulta::all();
-        return view('consultas.index')->with('Pacientes',$Pacientes)->with('Tratamientos',$Tratamientos)->with('Consultas',$Consultas);
+        return view('consultas.home')->with('Pacientes',$Pacientes)->with('Tratamientos',$Tratamientos)->with('Consultas',$Consultas);
     }
 
     /**

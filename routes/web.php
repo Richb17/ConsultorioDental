@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,12 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/calendar', [App\Http\Controllers\ConsultaController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'index']);
 
 
 Route::get('/nuevoPaciente', [App\Http\Controllers\PacienteController::class, 'create']);
@@ -37,4 +38,4 @@ Route::get('/editarTratamiento/{id}', [App\Http\Controllers\TratamientoControlle
 Route::get('/guardarEdicionTratamiento', [App\Http\Controllers\TratamientoController::class, 'update']);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+#Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
