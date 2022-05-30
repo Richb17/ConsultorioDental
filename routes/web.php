@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ExcelCSVController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,24 +21,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('paciente', App\Http\Controllers\PacienteController::class)->middleware('auth');
+Route::resource('tratamiento', App\Http\Controllers\TratamientoController::class)->middleware('auth');
+Route::resource('consulta', App\Http\Controllers\ConsultaController::class)->middleware('auth');
+Route::get('excel-csv-file', [App\Http\Controllers\ExcelCSVController::class, 'index']);
+Route::post('import-excel-csv-file', [App\Http\Controllers\ExcelCSVController::class, 'importExcelCSV']);
+Route::get('export-excel-csv-file/{slug}', [App\Http\Controllers\ExcelCSVController::class, 'exportExcelCSV']);
+Route::get('download-pdf', [App\Http\Controllers\ConsultaController::class, 'downloadPdf'])->name('download-pdf');
+
 Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'index']);
-Route::get('/verConsultas', [App\Http\Controllers\ConsultaController::class, 'indexCards']);
-Route::get('/guardarConsulta', [App\Http\Controllers\ConsultaController::class, 'store']);
-
-
-Route::get('/nuevoPaciente', [App\Http\Controllers\PacienteController::class, 'create']);
-Route::get('/verPacientes', [App\Http\Controllers\PacienteController::class, 'index']);
-Route::get('/guardarPaciente', [App\Http\Controllers\PacienteController::class, 'store']);
-Route::get('/eliminarPaciente/{id}', [App\Http\Controllers\PacienteController::class, 'destroy']);
-Route::get('/editarPaciente/{id}', [App\Http\Controllers\PacienteController::class, 'edit']);
-Route::get('/guardarEdicionPaciente', [App\Http\Controllers\PacienteController::class, 'update']);
-
-Route::get('/nuevoTratamiento', [App\Http\Controllers\TratamientoController::class, 'create']);
-Route::get('/verTratamientos', [App\Http\Controllers\TratamientoController::class, 'index']);
-Route::get('/guardarTratamiento', [App\Http\Controllers\TratamientoController::class, 'store']);
-Route::get('/eliminarTratamiento/{id}', [App\Http\Controllers\TratamientoController::class, 'destroy']);
-Route::get('/editarTratamiento/{id}', [App\Http\Controllers\TratamientoController::class, 'edit']);
-Route::get('/guardarEdicionTratamiento', [App\Http\Controllers\TratamientoController::class, 'update']);
-
-
-#Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
