@@ -133,9 +133,20 @@ class ConsultaController extends Controller
         request()->validate(Consulta::$rules);
         
 
-        $consulta->update($request->all());
-
-        dd($consulta);
+        $consulta = Consulta::find($request->id);
+        $consulta->paciente_id = $request->paciente_id;
+        $consulta->procedimiento_id = $request->procedimiento_id;
+        $consulta->fechaProgramada = $request->fechaProgramada;
+        $consulta->start = $request->start;
+        $consulta->end = $request->end;
+        if($request->asistencia){
+        $consulta->asistencia = $request->asistencia;
+        }
+        if($request->pagoCompleto){
+        $consulta->pagoCompleto = $request->pagoCompleto;
+        $consulta->fechaPago = date('Y-m-d');
+        }
+        $consulta->save();
         return redirect('/consulta');
     }
 

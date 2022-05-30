@@ -1,6 +1,8 @@
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+        @if($consulta->id)
+            {{ Form::hidden('id', $consulta->id) }}
+        @endif
         <div class="form-group">
             <label class="form-label" for="Pacientes">Paciente</label>
             <select class="form-select" name="paciente_id" id="paciente" placeholder="Seleccione un paciente">
