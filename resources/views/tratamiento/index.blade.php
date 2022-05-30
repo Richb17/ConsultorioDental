@@ -16,12 +16,13 @@
                             <h4 id="card_title">
                                 {{ __('Tratamiento') }}
                             </h4>
-
+                            @if(Auth::user()->role == 2)
                              <div class="float-right">
                                 <a href="{{ route('tratamiento.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                   {{ __('Crear Nuevo Tratamiento') }}
                                 </a>
                               </div>
+                            @endif
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -54,10 +55,12 @@
                                             <td>
                                                 <form action="{{ route('tratamiento.destroy',$tratamiento->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('tratamiento.show',$tratamiento->id) }}"><i class="fa fa-fw fa-eye"></i> Inspeccionar</a>
+                                                    @if(Auth::user()->role == 2)
                                                     <a class="btn btn-sm btn-success" href="{{ route('tratamiento.edit',$tratamiento->id) }}"><i class="fa fa-fw fa-edit"></i> Editar</a>
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Eliminar</button>
+                                                    @endif
                                                 </form>
                                             </td>
                                         </tr>

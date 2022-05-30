@@ -47,9 +47,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('consulta.index') }}" style="color:white;">{{ __('Consultas') }}</a>
                         </li>
+                        @if(Auth::user()->role == 2)
                         <li class="nav-item">
                             <a class="nav-link" href="excel-csv-file" style="color:white;">{{ __('CSV') }}</a>
                         </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
