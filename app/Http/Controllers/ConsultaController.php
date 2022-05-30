@@ -6,6 +6,7 @@ use App\Models\Consulta;
 use App\Models\LogConsultas;
 use App\Models\Tratamiento;
 use App\Models\Paciente;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -26,7 +27,8 @@ class ConsultaController extends Controller
         $consulta = new Consulta();
         $tratamientos = Tratamiento::all();
         $pacientes = Paciente::all();
-        return view('consulta.home', compact('consulta', 'tratamientos', 'pacientes'));
+        $events = Event::all();
+        return view('consulta.home', compact('consulta', 'tratamientos', 'pacientes', 'events'));
     }
 
     public function index()
@@ -68,6 +70,7 @@ class ConsultaController extends Controller
         $consulta = Consulta::create($request->all());
         $consulta->fechaPago = date("Y-m-d");
         $consulta->save();
+        
         $log = new LogConsultas();
         $log->idConsulta = $consulta->id;
         $log->paciente_idN = $consulta->paciente_id;
@@ -78,6 +81,13 @@ class ConsultaController extends Controller
         $log->asistenciaN = false;
         $log->pagoCompletoN = false;
         $log->save();
+
+        $event = new Event();
+        $event->title = $consulta->tratamiento->procedimiento;
+        $event->start = $consulta->fechaProgramada.'T'.$consulta->start;
+        $event->end = $consulta->fechaProgramada.'T'.$consulta->end;
+        $event->consultaId = $consulta->id;
+        $event->save();
 
         return redirect()->route('consulta.index')
             ->with('success', 'Se registro una nueva consulta!.');
@@ -121,10 +131,12 @@ class ConsultaController extends Controller
     public function update(Request $request, Consulta $consulta)
     {
         request()->validate(Consulta::$rules);
+        
 
         $consulta->update($request->all());
 
-        return redirect()->back('consulta.index');
+        dd($consulta);
+        return redirect('/consulta');
     }
 
     /**

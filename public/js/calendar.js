@@ -25,6 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
             $("#consulta").modal("show");
             $("#fecha").val(info.dateStr);
             //alert("Fecha " + info.date.getDate() + " " + (info.date.getMonth() + 1) + " " + info.date.getFullYear());
+        },
+
+        eventClick: function(info) {
+            //$("#evento").modal("show");
+            var evento = info.event
+            console.log(evento.id);
+            console.log(evento.title);
+            console.log(evento.start);
+            window.location.href = "/calendar/ver/" + evento.id;
         }
 
     });

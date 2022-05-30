@@ -31,3 +31,4 @@ Route::get('download-pdf', [App\Http\Controllers\ConsultaController::class, 'dow
 
 Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'calendar']);
 Route::get('/calendar/mostrar', [App\Http\Controllers\FullCalendarController::class, 'show']);
+Route::get('/calendar/ver/{id}', [App\Http\Controllers\FullCalendarController::class, 'showOne']);

@@ -62,6 +62,10 @@ class Consulta extends Model
     {
         return $this->hasOne('App\Models\Tratamiento', 'id', 'procedimiento_id');
     }
+
+    public function evento(){
+        return $this->hasOne('App\Models\Evento', 'consultaId', 'id');
+    }
     
 
 }
