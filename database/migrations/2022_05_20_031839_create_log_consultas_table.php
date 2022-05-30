@@ -19,14 +19,16 @@ class CreateLogConsultasTable extends Migration
             $table->bigInteger('paciente_id0')->nullable();
             $table->bigInteger('procedimiento_id0')->nullable();
             $table->date('fechaProgramada0')->nullable();
-            $table->time('horarioProgramado0')->nullable();
+            $table->time('start0')->nullable();
+            $table->time('end0')->nullable();
             $table->boolean('asistencia0')->nullable();
             $table->date('fechaPago0')->nullable();
             $table->boolean('pagoCompleto0')->nullable();
             $table->bigInteger('paciente_idN');
             $table->bigInteger('procedimiento_idN');
             $table->date('fechaProgramadaN');
-            $table->time('horarioProgramadoN');
+            $table->time('startN');
+            $table->time('endN');
             $table->boolean('asistenciaN');
             $table->date('fechaPagoN')->nullable();
             $table->boolean('pagoCompletoN');

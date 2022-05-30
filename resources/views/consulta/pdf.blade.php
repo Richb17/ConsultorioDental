@@ -45,7 +45,7 @@
 											<td>{{ $consulta->paciente->nombre.' '.$consulta->paciente->apellidoP.' '.$consulta->paciente->apellidoM }}</td>
 											<td>{{ $consulta->tratamiento->procedimiento }}</td>
 											<td>{{ $consulta->fechaProgramada }}</td>
-											<td>{{ $consulta->horarioProgramado }}</td>
+											<td>{{ $consulta->start }}</td>
                                             @if($consulta->asistencia == true)
 											    <td>Asistió</td>
                                             @else

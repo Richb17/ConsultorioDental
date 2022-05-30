@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
+            @if($consultas->count() > 0)
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
@@ -31,7 +32,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-
+                    
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -42,7 +43,7 @@
 										<th>Paciente</th>
 										<th>Procedimiento</th>
 										<th>Fecha </th>
-										<th>Hora</th>
+										<th>Hora inicio</th>
 										<th>Asitió</th>
 										<th>Costo</th>
 										<th>Fecha pago</th>
@@ -59,7 +60,7 @@
 											<td>{{ $consulta->paciente->nombre.' '.$consulta->paciente->apellidoP.' '.$consulta->paciente->apellidoM }}</td>
 											<td>{{ $consulta->tratamiento->procedimiento }}</td>
 											<td>{{ $consulta->fechaProgramada }}</td>
-											<td>{{ $consulta->horarioProgramado }}</td>
+											<td>{{ $consulta->start }}</td>
                                             @if($consulta->asistencia == true)
 											    <td>Asistió</td>
                                             @else
@@ -87,9 +88,21 @@
                             </table>
                         </div>
                     </div>
+                    
                 </div>
                 {!! $consultas->links() !!}
             </div>
+            @else
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ups! no hay ninguna cita.</h5>
+                        <p class="card-text">Tal vez deberias agendar una.</p>
+                        <a href="{{ route('consulta.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                            {{ __('Crear nueva cita') }}
+                        </a>
+                    </div>
+                </div>
+             @endif
         </div>
     </div>
 @endsection

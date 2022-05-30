@@ -34,7 +34,7 @@
                         </div>
                         <div class="form-group">
                             <strong>Hora:</strong>
-                            {{ $consulta->horarioProgramado }}
+                            {{ $consulta->start }}
                         </div>
                         <div class="form-group">
                             <strong>Asistencia:</strong>

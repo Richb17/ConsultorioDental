@@ -29,4 +29,5 @@ Route::post('import-excel-csv-file', [App\Http\Controllers\ExcelCSVController::c
 Route::get('export-excel-csv-file/{slug}', [App\Http\Controllers\ExcelCSVController::class, 'exportExcelCSV']);
 Route::get('download-pdf', [App\Http\Controllers\ConsultaController::class, 'downloadPdf'])->name('download-pdf');
 
-Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'index']);
+Route::get('/home', [App\Http\Controllers\ConsultaController::class, 'calendar']);
+Route::get('/calendar/mostrar', [App\Http\Controllers\FullCalendarController::class, 'show']);

@@ -6,7 +6,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-center">
+            @if($pacientes->count() > 0)
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
@@ -76,6 +77,17 @@
                 </div>
                 {!! $pacientes->links() !!}
             </div>
+            @else
+                <div class="card col-auto" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ups! no hay ningun paciente registrado.</h5>
+                        <p class="card-text">Tal vez deberias registrar uno.</p>
+                        <a href="{{ route('paciente.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                            {{ __('Registrar Nuevo Paciente') }}
+                          </a>
+                    </div>
+                </div>
+             @endif
         </div>
     </div>
 @endsection

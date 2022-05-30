@@ -23,9 +23,10 @@ class CreateConsultas extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('fechaProgramada');
-            $table->time('horarioProgramado');
-            $table->boolean('asistencia');
-            $table->boolean('pagoCompleto');
+            $table->time('start');
+            $table->time('end');
+            $table->boolean('asistencia')->default(false);
+            $table->boolean('pagoCompleto')->default(false);
             $table->date('fechaPago')->nullable();
             $table->softDeletes();
             $table->timestamps();

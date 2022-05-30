@@ -42,8 +42,10 @@
                                 </select>
                                 <br>
                                 
-                                <label for="hora">Seleccione una hora :</label>
-                                <input type="time" id="hora" name="horarioProgramado" required>   
+                                <label for="hora">Hora inicio :</label>
+                                <input type="time" id="hora" name="start" required>   
+                                <label for="hora">Hora Fin :</label>
+                                <input type="time" id="hora" name="end" required>   
                                 <br><br>
 
                                 <div class="row">
@@ -69,7 +71,7 @@
                                 <input id="fecha" class="form-control" name="fechaProgramada" type="hidden" >
                                 
                                 <div class="d-flex justify-content-end">
-                                    <input class="btn btn-primary " type="submit" value="Registrar Cita">
+                                    <input class="btn btn-primary " id="guardarEvento" type="submit" value="Registrar Cita">
                                 </div>
                             </form>
                         </div>

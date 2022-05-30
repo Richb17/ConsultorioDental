@@ -20,6 +20,15 @@ class ConsultaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function calendar()
+    {
+        $consulta = new Consulta();
+        $tratamientos = Tratamiento::all();
+        $pacientes = Paciente::all();
+        return view('consulta.home', compact('consulta', 'tratamientos', 'pacientes'));
+    }
+
     public function index()
     {
         $consultas = Consulta::paginate();
@@ -64,7 +73,8 @@ class ConsultaController extends Controller
         $log->paciente_idN = $consulta->paciente_id;
         $log->procedimiento_idN = $consulta->procedimiento_id;
         $log->fechaProgramadaN = $consulta->fechaProgramada;
-        $log->horarioProgramadoN = $consulta->horarioProgramado;
+        $log->startN = $consulta->start;
+        $log->endN = $consulta->end;
         $log->asistenciaN = false;
         $log->pagoCompletoN = false;
         $log->save();

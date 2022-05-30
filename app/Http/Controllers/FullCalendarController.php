@@ -26,6 +26,10 @@ class FullCalendarController extends Controller
         return view('fullcalender');
     }
  
+    public function show(Consulta $consulta){
+        $consulta = Consulta::all();
+        return response()->json($consulta);
+    }
     /**
      * Write code on Method
      *

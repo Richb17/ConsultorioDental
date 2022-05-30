@@ -33,7 +33,8 @@ class Consulta extends Model
 		'paciente_id' => 'required',
 		'procedimiento_id' => 'required',
 		'fechaProgramada' => 'required',
-		'horarioProgramado' => 'required',
+		'start' => 'required',
+        'end' => 'required'
     ];
 
     protected $perPage = 20;
@@ -43,7 +44,7 @@ class Consulta extends Model
      *
      * @var array
      */
-    protected $fillable = ['paciente_id','procedimiento_id','fechaProgramada','horarioProgramado','asistencia','fechaPago','pagoCompleto'];
+    protected $fillable = ['paciente_id','procedimiento_id','fechaProgramada','start','end','asistencia','fechaPago','pagoCompleto'];
 
 
     /**

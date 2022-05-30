@@ -20,15 +20,20 @@
         </div>
         <br>
         <div class="row">
-            <div class="form-group col-auto" style = "width:15em">
+            <div class="form-group col-auto" >
                 {{ Form::label('Fecha') }}
                 {{ Form::date('fechaProgramada', $consulta->fechaProgramada, ['class' => 'form-control' . ($errors->has('fechaProgramada') ? ' is-invalid' : '')]) }}
                 {!! $errors->first('fechaProgramada', '<div class="invalid-feedback">:message</div>') !!}
             </div>
-            <div class="form-group col-auto" style = "width:15em">
-                {{ Form::label('Hora') }}
-                {{ Form::time('horarioProgramado', $consulta->horarioProgramado, ['class' => 'form-control' . ($errors->has('horarioProgramado') ? ' is-invalid' : '')]) }}
-                {!! $errors->first('horarioProgramado', '<div class="invalid-feedback">:message</div>') !!}
+            <div class="form-group col-auto" >
+                {{ Form::label('Hora inicio') }}
+                {{ Form::time('start', $consulta->start, ['class' => 'form-control' . ($errors->has('start') ? ' is-invalid' : '')]) }}
+                {!! $errors->first('start', '<div class="invalid-feedback">:message</div>') !!}
+            </div>
+            <div class="form-group col-auto" >
+                {{ Form::label('Hora Fin') }}
+                {{ Form::time('end', $consulta->end, ['class' => 'form-control' . ($errors->has('end') ? ' is-invalid' : '')]) }}
+                {!! $errors->first('end', '<div class="invalid-feedback">:message</div>') !!}
             </div>
         </div>
         <br>
@@ -56,7 +61,7 @@
     </div>
     <br>
     <div class="box-footer mt20">
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" id="guardarEvento" class="btn btn-primary">Registrar</button>
         <button type="reset" class="btn btn-danger">Cancelar</button>
         <a class="btn btn-secondary" href="{{ route('consulta.index') }}"><i class="fa-solid fa-chevron-left"></i> Regresar</a>
     </div>
