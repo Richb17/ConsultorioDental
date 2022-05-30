@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tratamientos;
+use App\Models\Tratamiento;
 use App\Models\LogTratamientos;
 use Illuminate\Http\Request;
 
+/**
+ * Class TratamientoController
+ * @package App\Http\Controllers
+ */
 class TratamientoController extends Controller
 {
     /**
@@ -15,8 +19,10 @@ class TratamientoController extends Controller
      */
     public function index()
     {
-        $Tratamientos = Tratamientos::all();
-        return view('tratamientos.tratamientos')->with('Tratamientos',$Tratamientos);
+        $tratamientos = Tratamiento::paginate();
+
+        return view('tratamiento.index', compact('tratamientos'))
+            ->with('i', (request()->input('page', 1) - 1) * $tratamientos->perPage());
     }
 
     /**
@@ -26,21 +32,21 @@ class TratamientoController extends Controller
      */
     public function create()
     {
-        return view('tratamientos.registroTratamiento');
+        $tratamiento = new Tratamiento();
+        return view('tratamiento.create', compact('tratamiento'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $tratamiento = new Tratamientos();
-        $tratamiento->procedimiento = $request->procedimiento;
-        $tratamiento->costoSugerido = $request->costoSugerido;
-        $tratamiento->save();
+        request()->validate(Tratamiento::$rules);
+
+        $tratamiento = Tratamiento::create($request->all());
 
         $log = new LogTratamientos();
         $log->idTratamientos = $tratamiento->id;
@@ -48,42 +54,48 @@ class TratamientoController extends Controller
         $log->costoSugeridoN = $tratamiento->costoSugerido;
         $log->save();
 
-        return redirect()->back();
+        return redirect()->route('tratamiento.index')
+            ->with('success', 'Se registró correctamente el tratamiento.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Tratamientos  $Tratamiento
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tratamientos $Tratamiento)
+    public function show($id)
     {
-        //
+        $tratamiento = Tratamiento::find($id);
+
+        return view('tratamiento.show', compact('tratamiento'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Tratamientos  $Tratamiento
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $tratamiento = Tratamientos::find($id);
+        $tratamiento = Tratamiento::find($id);
 
-        return view('tratamientos.editarTratamiento')->with('tratamiento', $tratamiento);
+        return view('tratamiento.edit', compact('tratamiento'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param  Tratamiento $tratamiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Tratamiento $tratamiento)
     {
-        $tratamiento = Tratamientos::find($request->id);
+        request()->validate(Tratamiento::$rules);
+
+        $tratamiento->update($request->all());
 
         $log = new LogTratamientos();
         $log->idTratamientos = $tratamiento->id;
@@ -92,24 +104,21 @@ class TratamientoController extends Controller
         $log->procedimientoN = $request->procedimiento;
         $log->costoSugeridoN = $request->costoSugerido;
 
-        $tratamiento->procedimiento = $request->procedimiento;
-        $tratamiento->costoSugerido = $request->costoSugerido;
-        $tratamiento->save();
-        $log->save();
 
-        return redirect('/verTratamientos');
+        return redirect()->route('tratamiento.index')
+            ->with('success', 'Se actualizó correctamente el tratamiento seleccionado');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tratamientos  $Tratamiento
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        $tratamiento = Tratamientos::find($id);
-        $tratamiento->delete();
-        return redirect("/verTratamientos");
+        $tratamiento = Tratamiento::find($id)->delete();
+
+        return redirect()->route('tratamiento.index')
+            ->with('success', 'Se borró correctamente el tratamiento seleccionado');
     }
 }

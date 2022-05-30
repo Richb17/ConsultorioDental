@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Consultorio Dental</title>
+    <title>@yield('template_title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -35,24 +35,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-                        <a class="navbar-brand" href="{{ url('/home') }}">
-                            Inicio
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/nuevoPaciente') }}">
-                           Registrar Paciente
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/verPacientes') }}">
-                            Ver Pacientes
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/nuevoTratamiento') }}">
-                            Registrar Tratamiento
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/verTratamientos') }}">
-                            Ver Tratamientos
-                        </a>
-                        <a class="navbar-brand" href="{{ url('/verConsultas') }}">
-                            Ver Todas las Citas
-                        </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('paciente.index') }}" style="color:white;">{{ __('Pacientes') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('tratamiento.index') }}" style="color:white;">{{ __('Tratamientos') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('consulta.index') }}" style="color:white;">{{ __('Consultas') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="excel-csv-file" style="color:white;">{{ __('CSV') }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -93,11 +87,11 @@
             </div>
         </nav>
 
-        <script src="{{ asset('js/cal.js') }}" defer></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        
+        <script src="https://kit.fontawesome.com/2c7d0de3e2.js" crossorigin="anonymous"></script>
+
         <main class="py-4">
             @yield('content')
         </main>

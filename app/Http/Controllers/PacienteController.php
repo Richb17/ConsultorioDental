@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pacientes;
+use App\Models\Paciente;
 use App\Models\LogPacientes;
 use Illuminate\Http\Request;
 
+/**
+ * Class PacienteController
+ * @package App\Http\Controllers
+ */
 class PacienteController extends Controller
 {
     /**
@@ -15,8 +19,10 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $Pacientes = Pacientes::all();
-        return view('pacientes.pacientes')->with('Pacientes',$Pacientes);
+        $pacientes = Paciente::paginate();
+
+        return view('paciente.index', compact('pacientes'))
+            ->with('i', (request()->input('page', 1) - 1) * $pacientes->perPage());
     }
 
     /**
@@ -26,23 +32,21 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        return view('pacientes.registroPaciente');
+        $paciente = new Paciente();
+        return view('paciente.create', compact('paciente'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $paciente = new Pacientes();
-        $paciente->nombre = $request->nombre;
-        $paciente->apellidoP = $request->apellidoP;
-        $paciente->apellidoM = $request->apellidoM;
-        $paciente->numTelefono = $request->numTelefono;
-        $paciente->save();
+        request()->validate(Paciente::$rules);
+
+        $paciente = Paciente::create($request->all());
 
         $log = new LogPacientes();
         $log->idPaciente = $paciente->id;
@@ -52,42 +56,48 @@ class PacienteController extends Controller
         $log->numTelefonoN = $paciente->numTelefono;
         $log->save();
 
-        return redirect()->back();
+        return redirect()->route('paciente.index')
+            ->with('success', 'Se creó correctamente un paciente.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Pacientes  $Paciente
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Pacientes $Paciente)
+    public function show($id)
     {
-        //
+        $paciente = Paciente::find($id);
+
+        return view('paciente.show', compact('paciente'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Pacientes  $Paciente
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $paciente = Pacientes::find($id);
+        $paciente = Paciente::find($id);
 
-        return view('pacientes.editarPaciente')->with('paciente', $paciente);
+        return view('paciente.edit', compact('paciente'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     * @param  Paciente $paciente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Paciente $paciente)
     {
-        $paciente = Pacientes::find($request->id);
+        request()->validate(Paciente::$rules);
+
+        $paciente->update($request->all());
 
         $log = new LogPacientes();
         $log->idpaciente = $paciente->id;
@@ -100,26 +110,20 @@ class PacienteController extends Controller
         $log->apellidoMN = $request->apellidoM;
         $log->numTelefonoN = $request->numTelefono;
 
-        $paciente->nombre = $request->nombre;
-        $paciente->apellidoP = $request->apellidoP;
-        $paciente->apellidoM = $request->apellidoM;
-        $paciente->numTelefono = $request->numTelefono;
-        $paciente->save();
-        $log->save();
-
-        return redirect('/verPacientes');
+        return redirect()->route('paciente.index')
+            ->with('success', 'Se actualizó correctamente el paciente seleccionado');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pacientes  $Paciente
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        $paciente = Pacientes::find($id);
-        $paciente->delete();
-        return redirect("/verPacientes");
+        $paciente = Paciente::find($id)->delete();
+
+        return redirect()->route('paciente.index')
+            ->with('success', 'Se borro el paciente seleccionado');
     }
 }

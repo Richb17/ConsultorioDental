@@ -25,6 +25,8 @@ class CreateConsultas extends Migration
             $table->date('fechaProgramada');
             $table->time('horarioProgramado');
             $table->boolean('asistencia');
+            $table->boolean('pagoCompleto');
+            $table->date('fechaPago')->nullable();
             $table->softDeletes();
             $table->timestamps();
             

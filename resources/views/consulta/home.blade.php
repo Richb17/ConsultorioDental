@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('template_title')
+    {{ $consulta->name ?? 'Calendario' }}
+@endsection
+
 @section('content')
 @guest 
     
@@ -19,28 +23,50 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="/guardarConsulta" method="GET">
+                            <form method="POST" action="{{ route('consulta.store') }}"  role="form" enctype="multipart/form-data">
+                                @csrf
                                 <label class="form-label" for="Pacientes">Pacientes:</label>
-                                <select class="form-select" name="paciente" id="paciente" aria-label="Default select example">
+                                <select class="form-select" name="paciente_id" id="paciente" aria-label="Default select example">
                                     <option selected>Seleccione un paciente</option>
-                                    @foreach ($Pacientes as $paciente)
+                                    @foreach ($pacientes as $paciente)
                                         <option value={{ $paciente->id }}> {{$paciente->nombre}} {{$paciente->apellidoP}} {{$paciente->apellidoM}} </option>
                                     @endforeach
                                 </select>
                                 <br>
                                 <label class="form-label" for="Tratamientos">Tratamientos:</label>
-                                <select class="form-select" name="procedimiento" id="tratamiento" aria-label="Default select example">
+                                <select class="form-select" name="procedimiento_id" id="tratamiento" aria-label="Default select example">
                                     <option selected>Seleccione un tratamiento</option>
-                                    @foreach ($Tratamientos as $tratamiento)
+                                    @foreach ($tratamientos as $tratamiento)
                                         <option value={{ $tratamiento->id }}> {{$tratamiento->procedimiento}} </option>
                                     @endforeach
                                 </select>
                                 <br>
                                 
                                 <label for="hora">Seleccione una hora :</label>
-                                <input type="time" id="hora" name="hora" required>   
+                                <input type="time" id="hora" name="horarioProgramado" required>   
+                                <br><br>
 
-                                <input id="fecha" class="form-control" name="fecha" type="hidden" >
+                                <div class="row">
+                                    <script>
+                                        function getCheckboxStatus(var name){
+                                           var status = document.getElementById(name).checked;
+                                           if (status) {
+                                                document.getElementById(name).value = "1";
+                                           } else {
+                                                document.getElementById(name).value = "0"
+                                           }
+                                        }
+                                    </script>
+                                    <div class="form-group col-auto" style = "width:10em">
+                                        <label class="form-label" for="asistencia">Asistencia</label>
+                                        <input type="checkbox" id="asistencia" name="asistencia" value="1" onchange="getCheckboStatus('asistencia')">
+                                    </div>
+                                    <div class="form-group col-auto" style = "width:10em">
+                                        <label class="form-label" for="pago">Pago</label>
+                                        <input type="checkbox" id="pagoCompleto" name="pagoCompleto" value="1" onchange="getCheckboStatus('pagoCompleto')">
+                                    </div>
+                                </div>
+                                <input id="fecha" class="form-control" name="fechaProgramada" type="hidden" >
                                 
                                 <div class="d-flex justify-content-end">
                                     <input class="btn btn-primary " type="submit" value="Registrar Cita">
